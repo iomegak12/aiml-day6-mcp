@@ -1,0 +1,41 @@
+[project]
+name = "ticket-mcp"
+version = "0.1.0"
+description = "IT Support Ticket MCP server built with FastMCP (Streamable HTTP, SQLite, SQLModel)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Ramkumar" }]
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=2.12,<3",
+    "pydantic-settings>=2.16.3",
+    "pyfiglet>=1.0.4",
+    "rich>=15.0.0",
+    "sqlmodel>=0.0.50",
+]
+
+[project.scripts]
+ticket-mcp = "ticket_mcp.main:run"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ticket_mcp"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.5.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    "ignore:.*authlib.jose module is deprecated.*",
+    "ignore:.*httpx module is deprecated.*",
+]

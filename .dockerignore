@@ -1,0 +1,29 @@
+# VCS / editors
+.git
+.gitignore
+.vscode
+.idea
+
+# Python artefacts
+.venv
+__pycache__/
+*.py[oc]
+.pytest_cache/
+build/
+dist/
+*.egg-info
+
+# Runtime data & secrets (provided via volumes / env_file)
+data/
+logs/
+.env
+
+# Not needed in the image
+tests/
+docs/
+Makefile
+docker-compose.yml
+Dockerfile
+.dockerignore
+*.md
+!README.md

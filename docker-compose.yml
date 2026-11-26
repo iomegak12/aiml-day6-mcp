@@ -1,0 +1,29 @@
+services:
+  ticket-mcp:
+    build: .
+    image: ticket-mcp:0.1.0
+    container_name: ticket-mcp
+    env_file: .env
+    environment:
+      # Always bind to all interfaces inside the container
+      HOST: 0.0.0.0
+      PORT: 8989
+    ports:
+      - "8989:8989"
+    volumes:
+      - ticket-data:/app/data
+      - ticket-logs:/app/logs
+    tty: true            # keep the colourful banner/logs in `docker compose logs`
+    stop_signal: SIGINT  # same path as CTRL+C
+    stop_grace_period: 15s
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8989/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  ticket-data:
+  ticket-logs:
