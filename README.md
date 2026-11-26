@@ -98,6 +98,24 @@ Select the **Streamable HTTP** transport, enter the URL `http://localhost:8989/m
 claude mcp add --transport http tickets http://localhost:8989/mcp
 ```
 
+## LangChain agent demo (Jupyter)
+
+[notebooks/ticket_agent_demo.ipynb](notebooks/ticket_agent_demo.ipynb) builds a custom **LangChain agent** (OpenAI) that uses this server through `langchain-mcp-adapters` (`MultiServerMCPClient`, Streamable HTTP). The agent has a help-desk system prompt and conversation memory (`InMemorySaver`).
+
+| # | Use case | MCP primitives used |
+|---|---|---|
+| 1 | **Help-desk intake**: turn a plain-English complaint into a ticket, with priority and family inferred | Tool `register_ticket` |
+| 2 | **Triage & work a ticket**: find open P1 tickets, triage one, start it, resolve it | Tools `search_tickets`, `update_ticket_status`, `resolve_ticket`; prompt `triage_ticket`; resource `tickets://{ticket_id}` |
+| 3 | **Manager status report**: executive summary of the backlog | Resource `tickets://stats`; prompt `summarize_open`; tools as needed |
+
+**Run it**
+
+1. Add `OPENAI_API_KEY`, `AGENT_MODEL` and, optionally, `MCP_SERVER_URL` to `.env`. See `.env.example`.
+2. Start the server: `make run` **or** `make up`. Use one, not both, because they share port 8989 but not the database.
+3. Open the notebook in VS Code or Jupyter, select the `.venv` (Python 3.12) kernel, and **Run All**.
+
+> The notebook makes real OpenAI API calls and **writes tickets** to whichever server is running.
+
 ## Make targets
 
 | Target | Description |
@@ -155,6 +173,7 @@ src/ticket_mcp/
 ├── banner.py          # Startup banner
 └── main.py            # Entrypoint & graceful shutdown
 tests/                 # pytest (repository + in-memory MCP client)
+notebooks/             # LangChain agent demo (Jupyter)
 data/  logs/           # Runtime folders (kept via .gitkeep)
 ```
 

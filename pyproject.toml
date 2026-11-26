@@ -9,8 +9,14 @@ authors = [{ name = "Ramkumar" }]
 requires-python = ">=3.12"
 dependencies = [
     "fastmcp>=2.12,<3",
+    "ipykernel>=7.4.0",
+    "langchain>=1.5.2",
+    "langchain-mcp-adapters>=0.3.2",
+    "langchain-openai>=1.8.5",
+    "langgraph>=1.2.24",
     "pydantic-settings>=2.16.3",
     "pyfiglet>=1.0.4",
+    "python-dotenv>=1.2.4",
     "rich>=15.0.0",
     "sqlmodel>=0.0.50",
 ]

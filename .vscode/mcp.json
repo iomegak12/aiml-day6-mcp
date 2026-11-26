@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"my-ticket-mgmt-server": {
+			"url": "http://localhost:8989/mcp/",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}

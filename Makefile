@@ -65,4 +65,4 @@ reset-db:
 	uv run python -m ticket_mcp.seed --reset
 
 inspector:
-	npx -y @modelcontextprotocol/inspector
+	npx -y @modelcontextprotocol/inspector@latest
